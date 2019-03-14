@@ -8,14 +8,14 @@ table{
     border-collapse: collapse;
 }
 td{
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    border-left: 1px solid white;
     min-width: 40px;
     padding: 3px;
     text-align: center;
 }
-td:first-of-type{
+tr:first-of-type td{
     font-weight: bold;
     border-width: 0px;
-    border-right: 2px solid white;
+    border-bottom: 2px solid white;
 }

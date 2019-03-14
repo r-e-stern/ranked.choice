@@ -146,9 +146,9 @@ function createTable(tableData){
         $("table").append("<tr></tr>");
         for(var b in tableData[a]){
             if(b==0){
-                $("tr:last-of-type").append("<td>"+tableData[a][b]+"</td>");
+                $("tr:last-of-type").append("<td>"+tableData[b][a]+"</td>");
             }else{
-                $("tr:last-of-type").append("<td>"+tableData[a][b].toString(10)+"</td>");
+                $("tr:last-of-type").append("<td>"+tableData[b][a].toString(10)+"</td>");
             }
         }
     }
