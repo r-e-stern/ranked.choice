@@ -2,6 +2,7 @@ function Ballot(a){
     this.rejectedChoices = [];
     this.choices = a;
     this.currIndex = 0;
+    this.weight = 1;
     this.currChoice = a[0];
     this.triggerNextChoice = function(elim){
         this.rejectedChoices.push(elim);
@@ -23,12 +24,26 @@ function Ballot(a){
             }
         }
     };
+    this.splitBallot = function(percent){
+        this.weight = this.weight*(1-percent);
+        var c = new Ballot(a.slice(0));
+        c.rejectedChoices = this.rejectedChoices.slice(0);
+        c.currIndex = this.currIndex;
+        c.weight = this.weight * percent;
+        c.currChoice = this.currChoice;
+        this.triggerNextChoice = function(elim){};
+        return c;
+    }
 }
 
 function Race(b,d){
     this.ballots = b;
     this.candidates = d;
     this.results = [];
+}
+
+function SingleWinnerRace(b,d){
+    Race.call(this,b,d);
     this.tally = function(){
         var c = [];
         var e = [];
@@ -64,12 +79,48 @@ function Race(b,d){
     };
 }
 
+function MultiWinnerRace(b,d){
+    Race.call(this,b,d);
+    this.tally = function(){
+        var c = [];
+        var e = [];
+        for(var k in this.ballots){
+            if(!e.includes(this.ballots[k].currChoice)){
+                if(this.candidates.includes(this.ballots[k].currChoice)){
+                    e.push(this.ballots[k].currChoice);
+                    c.push([this.ballots[k].currChoice,1]);
+                }
+            }else{
+                for(var o in c){
+                    if(c[o][0]==this.ballots[k].currChoice){
+                        c[o][1]+=this.ballots[k].weight;
+                    }
+                }
+            }
+        }
+        c.sort(function(a,b){return b[1]-a[1];});
+        return c;
+    };
+    this.elect = function(winners){
+
+    };
+}
+
 function checkWinTally(tally){
     var s = 0;
     for(var a in tally){
         s+=tally[a][1];
     }
-    return tally[0][1]>=(s/2);
+    return tally[0][1]>(s/2);
+}
+
+function checkMultiWin(tally, winners, candidate){
+    var s = 0;
+    for(var a in tally){
+        s+=tally[a][1];
+    }
+    var threshold = (1/(winners+1))*s;
+    return tally[candidate][1]>threshold;
 }
 
 function buildResArray(res){
@@ -87,4 +138,18 @@ function buildResArray(res){
         }
     }
     return arr;
+}
+
+function createTable(tableData){
+    $("body").append("<table></table>");
+    for(var a in tableData){
+        $("table").append("<tr></tr>");
+        for(var b in tableData[a]){
+            if(b==0){
+                $("tr:last-of-type").append("<td>"+tableData[a][b]+"</td>");
+            }else{
+                $("tr:last-of-type").append("<td>"+tableData[a][b].toString(10)+"</td>");
+            }
+        }
+    }
 }
