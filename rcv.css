@@ -1,21 +1,54 @@
 body{
-    background-color: #aaaaaa;
-    color: #800000;
+    background-color: #cccccc;
+    color: maroon;
     font-size: 20px;
     font-family: monospace;
+    text-align: center;
 }
 table{
     border-collapse: collapse;
 }
 td{
-    border-right: 1px solid white;
-    border-left: 1px solid white;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
     min-width: 40px;
     padding: 3px;
     text-align: center;
 }
-tr:first-of-type td{
+td:first-of-type{
     font-weight: bold;
-    border-width: 0px;
-    border-bottom: 2px solid white;
+    border-bottom: 0;
+    border-top: 0;
+    border-right: 2px solid white;
+}
+textarea{
+    border: 2px solid rgba(255,255,255,.5);
+    background-color: transparent;
+    outline: none;
+    min-width: 800px;
+    max-width: 85%;
+    display: inline;
+    min-height: 400px;
+    max-height: 600px;
+    padding: 7px;
+    font-size: 15.5px;
+    color: maroon;
+    font-weight: bold;
+    font-family: monospace;
+}
+button{
+    display: block;
+    margin: auto;
+    outline: none;
+    background-color: maroon;
+    border: 0;
+    color: #cccccc;
+    font-size: 20px;
+    padding: 7px;
+    font-weight: bold;
+    font-family: monospace;
+    transition: 500ms;
+}
+button:hover{
+    background-color: black;
 }

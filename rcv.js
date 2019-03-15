@@ -142,14 +142,13 @@ function buildResArray(res){
 
 function createTable(tableData){
     $("body").append("<table></table>");
-    for(var a in tableData){
+    for(var c in tableData[0]){
         $("table").append("<tr></tr>");
-        for(var b in tableData[a]){
-            if(b==0){
-                $("tr:last-of-type").append("<td>"+tableData[b][a]+"</td>");
-            }else{
-                $("tr:last-of-type").append("<td>"+tableData[b][a].toString(10)+"</td>");
-            }
+    }
+    for(var a in tableData){
+        for(var b=0; b<tableData[a].length; b++){
+            console.log("tr:nth-of-type("+(b+1)+")");
+            $("tr:nth-of-type("+(b+1)+")").append("<td>"+tableData[b][a]+"</td>");
         }
     }
 }
