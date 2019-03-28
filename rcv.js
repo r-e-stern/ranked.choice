@@ -79,32 +79,32 @@ function SingleWinnerRace(b,d){
     };
 }
 
-function MultiWinnerRace(b,d){
-    Race.call(this,b,d);
-    this.tally = function(){
-        var c = [];
-        var e = [];
-        for(var k in this.ballots){
-            if(!e.includes(this.ballots[k].currChoice)){
-                if(this.candidates.includes(this.ballots[k].currChoice)){
-                    e.push(this.ballots[k].currChoice);
-                    c.push([this.ballots[k].currChoice,1]);
-                }
-            }else{
-                for(var o in c){
-                    if(c[o][0]==this.ballots[k].currChoice){
-                        c[o][1]+=this.ballots[k].weight;
-                    }
-                }
-            }
-        }
-        c.sort(function(a,b){return b[1]-a[1];});
-        return c;
-    };
-    this.elect = function(winners){
-
-    };
-}
+// function MultiWinnerRace(b,d){
+//     Race.call(this,b,d);
+//     this.tally = function(){
+//         var c = [];
+//         var e = [];
+//         for(var k in this.ballots){
+//             if(!e.includes(this.ballots[k].currChoice)){
+//                 if(this.candidates.includes(this.ballots[k].currChoice)){
+//                     e.push(this.ballots[k].currChoice);
+//                     c.push([this.ballots[k].currChoice,1]);
+//                 }
+//             }else{
+//                 for(var o in c){
+//                     if(c[o][0]==this.ballots[k].currChoice){
+//                         c[o][1]+=this.ballots[k].weight;
+//                     }
+//                 }
+//             }
+//         }
+//         c.sort(function(a,b){return b[1]-a[1];});
+//         return c;
+//     };
+//     this.elect = function(winners){
+//
+//     };
+// }
 
 function checkWinTally(tally){
     var s = 0;
@@ -114,14 +114,14 @@ function checkWinTally(tally){
     return tally[0][1]>(s/2);
 }
 
-function checkMultiWin(tally, winners, candidate){
-    var s = 0;
-    for(var a in tally){
-        s+=tally[a][1];
-    }
-    var threshold = (1/(winners+1))*s;
-    return tally[candidate][1]>threshold;
-}
+// function checkMultiWin(tally, winners, candidate){
+//     var s = 0;
+//     for(var a in tally){
+//         s+=tally[a][1];
+//     }
+//     var threshold = (1/(winners+1))*s;
+//     return tally[candidate][1]>threshold;
+// }
 
 function buildResArray(res){
     var arr = [];
@@ -140,15 +140,8 @@ function buildResArray(res){
     return arr;
 }
 
-function createTable(tableData){
-    $("body").append("<table></table>");
-    for(var c in tableData[0]){
-        $("table").append("<tr></tr>");
-    }
-    for(var a in tableData){
-        for(var b=0; b<tableData[a].length; b++){
-            console.log("tr:nth-of-type("+(b+1)+")");
-            $("tr:nth-of-type("+(b+1)+")").append("<td>"+tableData[b][a]+"</td>");
-        }
-    }
-}
+$(document).ready(function(){
+    $("button").click(function(){
+        eval($("textarea").val());
+    });
+});
