@@ -62,6 +62,7 @@ function SingleWinnerRace(b,d){
             }
         }
         c.sort(function(a,b){return b[1]-a[1];});
+        console.log(c);
         return c;
     };
     this.elect = function(){
