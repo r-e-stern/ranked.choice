@@ -62,7 +62,7 @@ function SingleWinnerRace(b,d){
             }
         }
         c.sort(function(a,b){return b[1]-a[1];});
-        console.log(c);
+        console.log(this.ballots);
         return c;
     };
     this.elect = function(){
