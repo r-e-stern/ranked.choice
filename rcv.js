@@ -1,35 +1,32 @@
 function Ballot(a){
     this.choices = a;
     this.rejectedChoices = [];
+    this.curr = a[0];
     this.currIndex = 0;
-    this.currChoice = a[0];
-    this.triggerNextChoice = elim => {
+    this.elimCand = elim => {
         this.rejectedChoices.push(elim);
-        if(this.currChoice==elim){
-            this.nextChoice();
+        if(this.curr==elim){
+            do{
+                this.currIndex++;
+                this.curr = (this.currIndex<=this.choices.length) ? a[this.currIndex] : "";
+            }while(this.rejectedChoices.includes(this.curr));
         }
-    };
-    this.nextChoice = () => {
-        do{
-            this.currIndex++;
-            this.currChoice = (this.currIndex<=this.choices.length) ? a[this.currIndex] : "";
-        }while(this.rejectedChoices.includes(this.currChoice));
     };
 }
 
 function SingleWinnerRace(b,d){
-    this.ballots = b, this.candidates = d;
-    this.results = [];
+    this.ballots = b, this.cands = d;
+    this.res = [];
     this.tally = () => {
         let c = [], e = [];
         for(let k in this.ballots){
-            if(!e.includes(this.ballots[k].currChoice)){
-                if(this.candidates.includes(this.ballots[k].currChoice)){
-                    e.push(this.ballots[k].currChoice);
-                    c.push([this.ballots[k].currChoice,1]);
+            if(!e.includes(this.ballots[k].curr)){
+                if(this.cands.includes(this.ballots[k].curr)){
+                    e.push(this.ballots[k].curr);
+                    c.push([this.ballots[k].curr,1]);
                 }
             }else{
-                c.forEach(x => {if(x[0]==this.ballots[k].currChoice){x[1]++}});
+                c.forEach(x => {if(x[0]==this.ballots[k].curr){x[1]++}});
             }
         }
         c.sort((a,b) => b[1]-a[1]);
@@ -38,11 +35,11 @@ function SingleWinnerRace(b,d){
     };
     this.elect = () => {
         do{
-            this.results.push(this.tally());
-            this.ballots.forEach(x => triggerNextChoice(this.results.slice(-1)[0].slice(-1)[0][0]));
-        }while(!checkWinTally(this.results.slice(-1)[0]));
-        console.log(buildResArray(this.results));
-        return this.results;
+            this.res.push(this.tally());
+            this.ballots.forEach(x => x.elimCand(this.res.slice(-1)[0].slice(-1)[0][0]));
+        }while(!checkWinTally(this.res.slice(-1)[0]));
+        console.log(buildOutput(this.res));
+        return this.res;
     };
 }
 
@@ -52,14 +49,14 @@ let checkWinTally = tally => {
     return tally[0][1]>(s/2);
 };
 
-let buildResArray = res => {
-    let arr = res[0].map(x => [x[0]]);
+let buildOutput = r => {
+    let arr = r[0].map(x => [x[0]]);
     // console.log(arr);
-    for(let a in res){
+    for(let a in r){
         for(let b in arr){
-            for(let c in res[a]){
-                if(res[a][c][0]==arr[b][0]){
-                    arr[b].push(res[a][c][1]);
+            for(let c in r[a]){
+                if(r[a][c][0]==arr[b][0]){
+                    arr[b].push(r[a][c][1]);
                 }
             }
         }
