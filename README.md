@@ -5,3 +5,12 @@
 ## How to use
 
 Simply input a full list of eligible candidates, separated by tabs or commas, into the Candidates box, a full list of new-line separated ballots in which the individual choices are separated by tabs or commas, and press **Run election**. If you're using the BHS Google Form ballot infrastructure, you should be able to copy/paste directly from the returns spreadsheet.
+
+## Example of use
+
+Using tab-delimited candidates and ballots, an input of
+
+![tab-delimited candidates and ballots](samples/tab-delimited.PNG)
+
+will yield a results table:
+![tab-delimited candidates and ballots](samples/results.PNG)
