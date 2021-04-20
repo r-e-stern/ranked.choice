@@ -26,14 +26,14 @@
                 <p class='lead'>Run a single-winner RCV election using output from Google Forms.</p>
                 <div class="form-group">
                     <input class="form-control" id='cand' 
-                        placeholder="Candidates — one row, from .csv format"></input>
+                        placeholder="Candidates (comma- or tab-separated list)"></input>
                     <textarea class="form-control mt-3" rows="12" id='ballots' 
-                        placeholder="Ballots — from .csv format"></textarea><br/>
+                        placeholder="Ballots (several lines of comma- or tab-separated lists)"></textarea><br/>
                 </div>
                 <button onclick='run_elec()' class="btn btn-primary">Run election</button>
                 <br/><br/>
             </div>
-            <div class="container results">
+            <div class="container results mb-5">
                 <div class="alert alert-success" role="alert">
                     <h4 class="alert-heading">Results</h4>
                     <hr>
