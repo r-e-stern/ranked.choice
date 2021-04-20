@@ -31,7 +31,6 @@ function SingleWinnerRace(b,d){
             }
         }
         c.sort((a,b) => b[1]-a[1]);
-        console.log(this.ballots);
         return c;
     };
     this.elect = () => {
@@ -39,28 +38,16 @@ function SingleWinnerRace(b,d){
             this.res.push(this.tally());
             this.ballots.forEach(x => x.elimCand(this.res.slice(-1)[0].slice(-1)[0][0]));
         }while(!checkWinTally(this.res.slice(-1)[0]));
-        console.log(buildOutput(this.res));
-        return this.res;
+        return this.buildOutput();
     };
+    this.buildOutput = () => this.res[0].map(y => [y[0], ...this.res.map(x => x.reduce((a,c) => c[0]==y[0] ? c[1] : a, 0))])
+                                        .sort((a,b) => b.slice(-1) - a.slice(-1));
+    // adapted from https://stackoverflow.com/questions/15164655/generate-html-table-from-2d-javascript-array#answer-63080907
+    this.makeTableHTML = () => `${this.buildOutput().reduce((c, o) => c += `<tr>${o.reduce((c, d, i) => (c += `<${i==0 ? "th  scope='row'" : "td"}>${d===0 ? "" : d}</td>`), '')}</tr>`, '')}`;
 }
 
 let checkWinTally = tally => {
     let s = 0;
     tally.forEach(x => s+=x[1]);
     return tally[0][1]>(s/2);
-};
-
-let buildOutput = r => {
-    let arr = r[0].map(x => [x[0]]);
-    // console.log(arr);
-    for(let a in r){
-        for(let b in arr){
-            for(let c in r[a]){
-                if(r[a][c][0]==arr[b][0]){
-                    arr[b].push(r[a][c][1]);
-                }
-            }
-        }
-    }
-    return arr;
 };
