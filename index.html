@@ -1,6 +1,57 @@
-<!DOCTYPE html><html lang="en"><head>
-    <meta charset="UTF-8">
-    <title>Ranked Choice Voting</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="rcv.js"></script>
-</head><body>Ctrl+Shift+I opens the console.</body></html>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>RCV at BHS</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" 
+            rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" 
+            crossorigin="anonymous">
+        <!-- Bootstrap Icons -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+            rel="stylesheet" >
+        <!-- JQuery 3 -->
+        <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" 
+            integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" 
+            crossorigin="anonymous"></script>
+        <!-- PapaParse 5 -->
+        <script src="https://unpkg.com/papaparse@5.3.0/papaparse.min.js"></script>
+        <script src="rcv.js"></script>
+        <script src="run-ui.js"></script>
+    </head>
+    <body class="d-flex flex-column h-100">
+        <main class="flex-shrink-0">
+            <div class="container">
+                <h1 class="mt-5">BHS Ranked Choice Voting Adjudicator</h3>
+                <p class='lead'>Run a single-winner RCV election using output from Google Forms.</p>
+                <div class="form-group">
+                    <input class="form-control" id='cand' 
+                        placeholder="Candidates (comma- or tab-separated list)"></input>
+                    <textarea class="form-control mt-3" rows="12" id='ballots' 
+                        placeholder="Ballots (several lines of comma- or tab-separated lists)"></textarea><br/>
+                </div>
+                <button onclick='run_elec()' class="btn btn-primary">Run election</button>
+                <br/><br/>
+            </div>
+            <div class="container results mb-5">
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Results</h4>
+                    <hr>
+                    <table class="table" id="res-target" style="width: 60%"></table>
+                </div>
+
+                <div class="alert alert-danger" role="alert">
+                    The ballots could not be parsed.
+                </div>
+            </div>
+        </main>
+        <footer class="footer py-3 bg-light fixed-bottom">
+            <div class="container">
+                <a class="text-decoration-none text-muted" 
+                href="https://github.com/r-e-stern/ranked.choice" 
+                target="_blank"><i class="bi bi-github"></i>
+                Developed by R.E. Stern '19</a>
+            </div>
+        </footer>
+    </body>
+</html>
