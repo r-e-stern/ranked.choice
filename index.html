@@ -20,10 +20,8 @@
                 <h1 class="mt-5">BHS Ranked Choice Voting Adjudicator</h3>
                 <p class='lead'>Run a single-winner RCV election using output from Google Forms.</p>
                 <div class="form-group">
-                    <label for='cand'>Candidates — one row, from .csv format</label>
-                    <input class="form-control" id='cand'></textarea><br/>
-                    <label for='ballots'>Ballots — from .csv format</label>
-                    <textarea class="form-control form-control-sm" rows="12" id='ballots'></textarea><br/>
+                    <input class="form-control" id='cand' placeholder="Candidates — one row, from .csv format"></textarea>
+                    <textarea class="form-control mt-3" rows="12" id='ballots' placeholder="Ballots — from .csv format"></textarea><br/>
                 </div>
                 <button onclick='run_elec()' class="btn btn-primary">Run election</button>
                 <br/><br/>
