@@ -20,13 +20,14 @@ function SingleWinnerRace(b,d){
     this.tally = () => {
         let c = [], e = [];
         for(let k in this.ballots){
-            if(!e.includes(this.ballots[k].curr)){
-                if(this.cands.includes(this.ballots[k].curr)){
-                    e.push(this.ballots[k].curr);
-                    c.push([this.ballots[k].curr,1]);
+            let currVote = this.ballots[k].curr;
+            if(!e.includes(currVote)){
+                if(this.cands.includes(currVote)){
+                    e.push(currVote);
+                    c.push([currVote,1]);
                 }
             }else{
-                c.forEach(x => {if(x[0]==this.ballots[k].curr){x[1]++}});
+                c.forEach(x => {if(x[0]==currVote){x[1]++}});
             }
         }
         c.sort((a,b) => b[1]-a[1]);
